@@ -1,0 +1,180 @@
+import numpy as np
+import pandas as pd
+
+# Define weights for metrics
+METRIC_WEIGHTS = {
+    "points": 0.4,
+    "rebounds": 0.2,
+    "assists": 0.2,
+    "steals": 0.1,
+    "blocks": 0.1,
+    "PER": 1.5,
+    "WS": 1.2,
+    "BPM": 1.3,
+    "salary_penalty": -0.05,
+    "contract_years_bonus": 0.2,
+    "age_potential": 0.15,
+}
+
+def calculate_player_value(player):
+    """
+    Calculate the trade value of a player based on statistics and contract factors.
+    """
+    stats_value = (
+        player["points"] * METRIC_WEIGHTS["points"] +
+        player["rebounds"] * METRIC_WEIGHTS["rebounds"] +
+        player["assists"] * METRIC_WEIGHTS["assists"] +
+        player["steals"] * METRIC_WEIGHTS["steals"] +
+        player["blocks"] * METRIC_WEIGHTS["blocks"]
+    )
+    advanced_value = (
+        player["PER"] * METRIC_WEIGHTS["PER"] +
+        player["WS"] * METRIC_WEIGHTS["WS"] +
+        player["BPM"] * METRIC_WEIGHTS["BPM"]
+    )
+    contract_value = (
+        player["salary"] * METRIC_WEIGHTS["salary_penalty"] +
+        player["contract_years"] * METRIC_WEIGHTS["contract_years_bonus"]
+    )
+    age_value = (30 - player["age"]) * METRIC_WEIGHTS["age_potential"]
+
+    total_value = stats_value + advanced_value + contract_value + age_value
+    return total_value
+
+def evaluate_trade(team_a, team_b):
+    """
+    Evaluate a trade between two teams based on the total player value.
+    """
+    team_a_value = sum(calculate_player_value(player) for player in team_a)
+    team_b_value = sum(calculate_player_value(player) for player in team_b)
+
+    print(f"Team A Trade Value: {team_a_value:.2f}")
+    print(f"Team B Trade Value: {team_b_value:.2f}")
+
+    if team_a_value > team_b_value:
+        print("Team A benefits more from this trade.")
+    elif team_b_value > team_a_value:
+        print("Team B benefits more from this trade.")
+    else:
+        print("This trade is balanced.")
+
+# Example data for players
+import numpy as np
+import pandas as pd
+
+# Define weights for metrics
+METRIC_WEIGHTS = {
+    "points": 0.4,
+    "rebounds": 0.2,
+    "assists": 0.2,
+    "steals": 0.1,
+    "blocks": 0.1,
+    "PER": 1.5,
+    "WS": 1.2,
+    "BPM": 1.3,
+    "salary_penalty": -0.05,
+    "contract_years_bonus": 0.2,
+    "age_potential": 0.15,
+}
+
+def calculate_player_value(player):
+    """
+    Calculate the trade value of a player based on statistics and contract factors.
+    """
+    stats_value = (
+        player["points"] * METRIC_WEIGHTS["points"] +
+        player["rebounds"] * METRIC_WEIGHTS["rebounds"] +
+        player["assists"] * METRIC_WEIGHTS["assists"] +
+        player["steals"] * METRIC_WEIGHTS["steals"] +
+        player["blocks"] * METRIC_WEIGHTS["blocks"]
+    )
+    advanced_value = (
+        player["PER"] * METRIC_WEIGHTS["PER"] +
+        player["WS"] * METRIC_WEIGHTS["WS"] +
+        player["BPM"] * METRIC_WEIGHTS["BPM"]
+    )
+    contract_value = (
+        player["salary"] * METRIC_WEIGHTS["salary_penalty"] +
+        player["contract_years"] * METRIC_WEIGHTS["contract_years_bonus"]
+    )
+    age_value = (30 - player["age"]) * METRIC_WEIGHTS["age_potential"]
+
+    total_value = stats_value + advanced_value + contract_value + age_value
+    return total_value
+
+def evaluate_trade(team_a, team_b):
+    """
+    Evaluate a trade between two teams based on the total player value.
+    """
+    team_a_value = sum(calculate_player_value(player) for player in team_a)
+    team_b_value = sum(calculate_player_value(player) for player in team_b)
+
+    print(f"Team A Trade Value: {team_a_value:.2f}")
+    print(f"Team B Trade Value: {team_b_value:.2f}")
+
+    if team_a_value > team_b_value:
+        print("Team A benefits more from this trade.")
+    elif team_b_value > team_a_value:
+        print("Team B benefits more from this trade.")
+    else:
+        print("This trade is balanced.")
+
+# Example data for players
+team_a_players = [
+    {"name": "Player 1", "points": 25, "rebounds": 8, "assists": 5, "steals": 1, "blocks": 1,
+     "PER": 20.5, "WS": 5.3, "BPM": 4.1, "salary": 30, "contract_years": 2, "age": 28},
+   {"name": "Player 2", "points": 15, "rebounds": 5, "assists": 7, "steals": 1.5, "blocks": 0.5, 
+   "PER": 15.2, "WS": 3.1, "BPM": 1.8, "salary": 15, "contract_years": 3, "age": 25},
+]
+
+team_b_players = [
+    {"name": "Player 3", "points": 20, "rebounds": 10, "assists": 3, "steals": 1, "blocks": 1.5, 
+     "PER": 18.3, "WS": 4.7, "BPM": 3.5, "salary": 25, "contract_years": 1, "age": 30},
+    {"name": "Player 4", "points": 10, "rebounds": 4, "assists": 8, "steals": 2, "blocks": 0.3, 
+     "PER": 14.8, "WS": 2.5, "BPM": 1.2, "salary": 10, "contract_years": 4, "age": 24},
+]
+
+# Updated code w/ user input
+
+def get_player_data():
+    """
+    Collect player data from user input.
+    """
+    player = {}
+    player["name"] = input("Enter player name: ")
+    player["points"] = float(input(f"Enter {player['name']}'s points per game: "))
+    player["rebounds"] = float(input(f"Enter {player['name']}'s rebounds per game: "))
+    player["assists"] = float(input(f"Enter {player['name']}'s assists per game: "))
+    player["steals"] = float(input(f"Enter {player['name']}'s steals per game: "))
+    player["blocks"] = float(input(f"Enter {player['name']}'s blocks per game: "))
+    player["PER"] = float(input(f"Enter {player['name']}'s Player Efficiency rating (PER): "))
+    player["WS"] = float(input(f"Enter {player['name']}'s Win Shares (WS): "))
+    player["BPM"] = float(input(f"Enter {player['name']}'s Box Plus-Minus (BPM): "))
+    player["salary"] = float(input(f"Enter {player['name']}'s annual salary (in millions): "))
+    player["contract_years"] = int(input(f"Enter {player['name']}'s remaining contract years: "))
+    player["age"] = int(input(f"Enter {player['name']}'s age: "))
+    return player
+
+def get_team_data():
+    """
+    Collect team data from user input.
+    """
+    team_name = input("Enter team name: ")
+    num_players = int(input(f"How many players are on {team_name}'s trade list? "))
+    team_players = []
+    for i in range(num_players):
+        print(f"\nEnter data for Player {i + 1}:")
+        team_players.append(get_player_data())
+    return team_name, team_players
+
+# Allow user to input teams and players 
+
+print("Enter data for Team A:")
+team_a_name, team_a_players = get_team_data()
+
+print("\nEnter data for Team B:")
+team_b_name, team_b_players = get_team_data()
+
+# Evaluate the trade
+evaluate_trade(team_a_players, team_b_players)
+evaluate_trade(team_a_players, team_b_players)
